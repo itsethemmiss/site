@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethem Miss</title>
+    <title>It's Ethem Miss</title>
 
     <style>
         @font-face {
@@ -126,6 +126,7 @@
             justify-content: center;
             padding: 1rem;
             font-family: 'Inter', sans-serif;
+            position: relative;
         }
         
         .dark body {
@@ -219,6 +220,163 @@
                 font-size: 3.75rem;
             }
         }
+        
+        .download-btn {
+            padding: 0.75rem 1.5rem;
+            background: #5d5cde;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 2rem;
+            font-size: 1rem;
+        }
+        
+        .download-btn:hover {
+            background: #4c4bc7;
+            transform: translateY(-1px);
+        }
+        
+        /* Download Modal Styles */
+        .download-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+        
+        .download-modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .dark .modal-content {
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+        }
+        
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .close-btn {
+            color: #9ca3af;
+        }
+        
+        .dark .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        
+        .dark .modal-title {
+            color: white;
+        }
+        
+        .platform-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .platform-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .platform-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .dark .platform-title {
+            color: white;
+        }
+        
+        .platform-text {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .dark .platform-text {
+            color: #9ca3af;
+        }
+        
+        .website-link {
+            color: #5d5cde;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .website-link:hover {
+            text-decoration: underline;
+        }
+        
+        .apk-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .apk-btn:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
@@ -237,6 +395,36 @@
                 <span id="toggleCircle" class="glass-circle toggle-circle"></span>
             </button>
             <span class="toggle-label">Sir</span>
+        </div>
+        
+        <!-- Download Button -->
+        <button id="openDownloadModal" class="download-btn">Download</button>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="download-modal">
+        <div class="modal-content">
+            <button id="closeModal" class="close-btn">×</button>
+            <h2 class="modal-title">Download App</h2>
+            
+            <!-- iOS Section -->
+            <div class="platform-section">
+                <h3 class="platform-title">📱 iOS</h3>
+                <div class="platform-text">
+                    <strong>Step 1:</strong> Go to <a href="https://itisethemmiss.pages.dev" class="website-link">itisethemmiss.pages.dev</a> on Safari<br>
+                    <strong>Step 2:</strong> Press the Share button<br>
+                    <strong>Step 3:</strong> Tap "Add to Home Screen"
+                </div>
+            </div>
+            
+            <!-- Android Section -->
+            <div class="platform-section">
+                <h3 class="platform-title">🤖 Android</h3>
+                <div class="platform-text">
+                    Download the APK file to install on your Android device
+                </div>
+                <button class="apk-btn">Download APK</button>
+            </div>
         </div>
     </div>
 
@@ -283,6 +471,34 @@
                 toggleCircle.classList.remove('active');
                 toggleSwitch.classList.remove('active');
             }
+        });
+
+        // Download modal functionality
+        const openDownloadModal = document.getElementById('openDownloadModal');
+        const downloadModal = document.getElementById('downloadModal');
+        const closeModal = document.getElementById('closeModal');
+
+        openDownloadModal.addEventListener('click', function() {
+            downloadModal.classList.add('show');
+        });
+
+        closeModal.addEventListener('click', function() {
+            downloadModal.classList.remove('show');
+        });
+
+        // Close modal when clicking outside
+        downloadModal.addEventListener('click', function(e) {
+            if (e.target === downloadModal) {
+                downloadModal.classList.remove('show');
+            }
+        });
+
+        // APK download placeholder
+        const apkBtn = document.querySelector('.apk-btn');
+        apkBtn.addEventListener('click', function() {
+            // Placeholder for actual APK download
+            console.log('APK download initiated');
+            // You would replace this with actual APK file download logic
         });
     </script>
 </body>
