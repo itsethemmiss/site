@@ -4,20 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ethem Miss</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontSize: {
-                        'giant': ['12rem', '1'],
-                        'mega': ['16rem', '1'],
-                        'ultra': ['20rem', '1']
-                    }
-                }
-            }
-        }
-    </script>
+
     <style>
         @font-face {
             font-family: 'Inter';
@@ -123,24 +110,133 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.6),
                 inset 0 -1px 0 rgba(0, 0, 0, 0.1);
         }
+        
+        /* Base styles replacing Tailwind */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .dark body {
+            background-color: #111827;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        .main-text {
+            color: #111827;
+            text-transform: uppercase;
+            letter-spacing: -0.025em;
+        }
+        
+        .dark .main-text {
+            color: white;
+        }
+        
+        .phonetic {
+            font-size: 1.5rem;
+            color: #4b5563;
+            margin-top: 1rem;
+            font-weight: 300;
+        }
+        
+        .dark .phonetic {
+            color: #9ca3af;
+        }
+        
+        .toggle-container {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .toggle-label {
+            font-size: 1.125rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .dark .toggle-label {
+            color: #d1d5db;
+        }
+        
+        .toggle-button {
+            position: relative;
+            display: inline-flex;
+            height: 3rem;
+            width: 6rem;
+            align-items: center;
+            border-radius: 9999px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .toggle-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        .toggle-circle {
+            display: inline-block;
+            height: 2rem;
+            width: 2rem;
+            transform: translateX(0.5rem);
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-circle.active {
+            transform: translateX(3.5rem);
+        }
+        
+        @media (min-width: 768px) {
+            .phonetic {
+                font-size: 2.25rem;
+            }
+            .toggle-label {
+                font-size: 1.25rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .phonetic {
+                font-size: 3.75rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-white dark:bg-gray-900 min-h-screen flex items-center justify-center p-4 overflow-hidden">
-    <div class="text-center">
-        <h1 id="mainText" class="giant-text text-gray-900 dark:text-white uppercase tracking-tight">
+<body>
+    <div class="container">
+        <h1 id="mainText" class="giant-text main-text">
             it's ethem miss
         </h1>
-        <p class="text-2xl md:text-4xl lg:text-6xl text-gray-600 dark:text-gray-400 mt-4 font-light">
+        <p class="phonetic">
             /ˈɛtuːm/
         </p>
         
         <!-- Liquid Glass Toggle Switch -->
-        <div class="mt-8 flex items-center justify-center space-x-4">
-            <span class="text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium">Miss</span>
-            <button id="toggleSwitch" class="glass-toggle relative inline-flex h-12 w-24 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-transparent">
-                <span id="toggleCircle" class="glass-circle inline-block h-8 w-8 transform rounded-full transition-all duration-300 translate-x-2"></span>
+        <div class="toggle-container">
+            <span class="toggle-label">Miss</span>
+            <button id="toggleSwitch" class="glass-toggle toggle-button">
+                <span id="toggleCircle" class="glass-circle toggle-circle"></span>
             </button>
-            <span class="text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium">Sir</span>
+            <span class="toggle-label">Sir</span>
         </div>
     </div>
 
@@ -180,13 +276,11 @@
             
             if (isSir) {
                 mainText.textContent = "it's ethem sir";
-                toggleCircle.classList.remove('translate-x-2');
-                toggleCircle.classList.add('translate-x-14');
+                toggleCircle.classList.add('active');
                 toggleSwitch.classList.add('active');
             } else {
                 mainText.textContent = "it's ethem miss";
-                toggleCircle.classList.remove('translate-x-14');
-                toggleCircle.classList.add('translate-x-2');
+                toggleCircle.classList.remove('active');
                 toggleSwitch.classList.remove('active');
             }
         });
