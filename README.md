@@ -14,6 +14,7 @@ A simple HTML web page featuring a dynamic "It's Ethem [Miss/Sir]" title and dar
 - Tailwind CSS
 - JavaScript
 
-## Extra
+## Notes
 
 View extra files in [/extra](/extra) directory.
+View assets file in [/assets](/assets) directory.
