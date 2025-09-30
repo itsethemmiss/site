@@ -43,13 +43,21 @@
         <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float"></div>
         <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
     </div>
-
+<!-- Button container -->
+<div class="absolute top-6 right-6 z-20 flex space-x-2">
     <!-- Toggle button -->
-    <div class="absolute top-6 right-6 z-20">
-        <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-            <i class="fas fa-repeat text-primary text-2xl"></i>
+    <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+        <i class="fas fa-repeat text-primary text-2xl"></i>
+    </button>
+    
+    <!-- Back to home button -->
+    <a href="../index.html">
+        <button id="backToHomeBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+          
+            <span class="ml-2">Back</span>
         </button>
-    </div>
+    </a>
+</div>
 
     <!-- Main content -->
     <div class="relative z-10 min-h-screen flex items-center justify-center px-4">
@@ -68,7 +76,7 @@
 
     <!-- Footer -->
     <footer class="relative z-10 text-center py-8 text-gray-500 dark:text-gray-400">
-        <p>&copy; 2024 Ethem Miss. Crafted with care.</p>
+        <p>&copy; 2025 Ethem Beldagli and James Davies. Crafted with care.</p>
     </footer>
 
     <script>
