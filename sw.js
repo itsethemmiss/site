@@ -1,6 +1,8 @@
 const CACHE_NAME = 'ethem-miss-v1';
 const urlsToCache = [
   '/',
+  '/manifest.json',
+  '/logo.png',
   '/index.html',
   '/inter.ttf',
   'https://cdn.tailwindcss.com'
