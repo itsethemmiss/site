@@ -179,51 +179,16 @@
 
     <script>
         // Dark mode support
-        let isManualTheme = false; // Track if user manually changed theme
-        
-        // Initial theme setup
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
         }
-        
-        // Auto theme switching based on system preference (only if not manually set)
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (!isManualTheme) {
-                if (event.matches) {
-                    document.documentElement.classList.add('dark');
-                    updateThemeIcon();
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    updateThemeIcon();
-                }
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
             }
         });
-
-        // Theme toggle functionality
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const themeIcon = document.getElementById('themeIcon');
-
-        function updateThemeIcon() {
-            const isDark = document.documentElement.classList.contains('dark');
-            themeIcon.className = isDark ? 'fas fa-sun text-primary text-2xl' : 'fas fa-moon text-primary text-2xl';
-        }
-
-        function toggleTheme() {
-            isManualTheme = true; // Mark as manually set
-            const isDark = document.documentElement.classList.contains('dark');
-            
-            if (isDark) {
-                document.documentElement.classList.remove('dark');
-            } else {
-                document.documentElement.classList.add('dark');
-            }
-            updateThemeIcon();
-        }
-
-        // Initialize theme icon
-        updateThemeIcon();
-
-        themeToggleBtn.addEventListener('click', toggleTheme);
 
         // Toggle functionality
         let isMiss = true;
