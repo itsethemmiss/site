@@ -17,6 +17,8 @@
                         'fade-in': 'fadeIn 1s ease-in-out',
                         'slide-up': 'slideUp 0.8s ease-out',
                         'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -36,38 +38,135 @@
             }
         }
     </script>
+    <style>
+        .custom-bg {
+            transition: background 0.3s ease;
+        }
+        .custom-text {
+            transition: color 0.3s ease;
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300">
+<body class="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300 custom-bg">
     <!-- Background decoration -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float"></div>
         <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
     </div>
-<!-- Button container -->
-<div class="absolute top-6 right-6 z-20 flex space-x-2">
-    <!-- Toggle button -->
-    <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-        <i class="fas fa-repeat text-primary text-2xl"></i>
-    </button>
-    
-    <!-- Back to home button -->
-    <a href="../index.html">
-        <button id="backToHomeBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-            <i class="fas fa-arrow-left text-primary text-2xl"></i>
+
+    <!-- Button container -->
+    <div class="absolute top-6 right-6 z-20 flex space-x-2">
+        <!-- Settings button -->
+        <button id="settingsBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+            <i class="fas fa-cog text-primary text-2xl"></i>
         </button>
-    </a>
-</div>
+        
+        <!-- Toggle button -->
+        <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+            <i class="fas fa-repeat text-primary text-2xl"></i>
+        </button>
+        
+        <!-- Back to home button -->
+        <a href="../index.html">
+            <button id="backToHomeBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-primary text-2xl"></i>
+            </button>
+        </a>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 transform scale-95 transition-all duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Settings</h2>
+                <button id="closeSettings" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Font Size -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Font Size</label>
+                    <input type="range" id="fontSizeSlider" min="32" max="128" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <span id="fontSizeValue" class="text-sm text-gray-500 dark:text-gray-400">80px</span>
+                </div>
+
+                <!-- Main Text -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Main Text</label>
+                    <input type="text" id="mainTextInput" value="It's Ethem Miss" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                </div>
+
+                <!-- Phonetic Spelling -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phonetic Spelling</label>
+                    <input type="text" id="phoneticInput" value="/ˈɛtuːm/" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                </div>
+
+                <!-- Background Color -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Background Color</label>
+                    <select id="bgColorSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                        <option value="default">Default Gradient</option>
+                        <option value="blue">Blue Gradient</option>
+                        <option value="purple">Purple Gradient</option>
+                        <option value="green">Green Gradient</option>
+                        <option value="orange">Orange Gradient</option>
+                        <option value="pink">Pink Gradient</option>
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                    </select>
+                </div>
+
+                <!-- Text Color -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Text Color</label>
+                    <select id="textColorSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                        <option value="default">Default Gradient</option>
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                        <option value="green">Green</option>
+                        <option value="red">Red</option>
+                        <option value="orange">Orange</option>
+                        <option value="pink">Pink</option>
+                        <option value="black">Black</option>
+                        <option value="white">White</option>
+                    </select>
+                </div>
+
+                <!-- Animation -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Animation</label>
+                    <select id="animationSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                        <option value="none">None</option>
+                        <option value="fade-in">Fade In</option>
+                        <option value="slide-up">Slide Up</option>
+                        <option value="float">Float</option>
+                        <option value="pulse-slow">Pulse</option>
+                        <option value="bounce-slow">Bounce</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button id="resetSettings" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Main content -->
     <div class="relative z-10 min-h-screen flex items-center justify-center px-4">
         <div class="text-center max-w-4xl mx-auto">
             <!-- Main heading -->
-            <h1 id="mainText" class="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-gray-900 via-primary to-purple-600 dark:from-white dark:via-primary dark:to-purple-400 bg-clip-text text-transparent animate-fade-in mb-4">
+            <h1 id="mainText" class="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-gray-900 via-primary to-purple-600 dark:from-white dark:via-primary dark:to-purple-400 bg-clip-text text-transparent animate-fade-in mb-4 custom-text">
                 It's Ethem Miss
             </h1>
             
             <!-- Phonetic spelling -->
-            <p class="text-2xl md:text-3xl text-gray-500 dark:text-gray-400 animate-slide-up font-light tracking-wider">
+            <p id="phoneticText" class="text-2xl md:text-3xl text-gray-500 dark:text-gray-400 animate-slide-up font-light tracking-wider">
                 /ˈɛtuːm/
             </p>
         </div>
@@ -80,16 +179,51 @@
 
     <script>
         // Dark mode support
+        let isManualTheme = false; // Track if user manually changed theme
+        
+        // Initial theme setup
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
         }
+        
+        // Auto theme switching based on system preference (only if not manually set)
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (event.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
+            if (!isManualTheme) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                    updateThemeIcon();
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    updateThemeIcon();
+                }
             }
         });
+
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+
+        function updateThemeIcon() {
+            const isDark = document.documentElement.classList.contains('dark');
+            themeIcon.className = isDark ? 'fas fa-sun text-primary text-2xl' : 'fas fa-moon text-primary text-2xl';
+        }
+
+        function toggleTheme() {
+            isManualTheme = true; // Mark as manually set
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+            } else {
+                document.documentElement.classList.add('dark');
+            }
+            updateThemeIcon();
+        }
+
+        // Initialize theme icon
+        updateThemeIcon();
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
 
         // Toggle functionality
         let isMiss = true;
@@ -97,14 +231,172 @@
         const mainText = document.getElementById('mainText');
         
         toggleBtn.addEventListener('click', () => {
+            const currentText = document.getElementById('mainTextInput').value;
             if (isMiss) {
-                mainText.textContent = "It's Ethem Sir";
-                document.title = "It's Ethem Sir";
+                const newText = currentText.replace('Miss', 'Sir');
+                mainText.textContent = newText;
+                document.getElementById('mainTextInput').value = newText;
+                document.title = newText;
             } else {
-                mainText.textContent = "It's Ethem Miss";
-                document.title = "It's Ethem Miss";
+                const newText = currentText.replace('Sir', 'Miss');
+                mainText.textContent = newText;
+                document.getElementById('mainTextInput').value = newText;
+                document.title = newText;
             }
             isMiss = !isMiss;
+        });
+
+        // Settings modal functionality
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettings = document.getElementById('closeSettings');
+
+        function openSettings() {
+            settingsModal.classList.remove('opacity-0', 'pointer-events-none');
+            settingsModal.querySelector('.bg-white').classList.remove('scale-95');
+            settingsModal.querySelector('.bg-white').classList.add('scale-100');
+        }
+
+        function closeSettingsModal() {
+            settingsModal.classList.add('opacity-0', 'pointer-events-none');
+            settingsModal.querySelector('.bg-white').classList.add('scale-95');
+            settingsModal.querySelector('.bg-white').classList.remove('scale-100');
+        }
+
+        settingsBtn.addEventListener('click', openSettings);
+        closeSettings.addEventListener('click', closeSettingsModal);
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) closeSettingsModal();
+        });
+
+        // Settings controls
+        const fontSizeSlider = document.getElementById('fontSizeSlider');
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        const mainTextInput = document.getElementById('mainTextInput');
+        const phoneticInput = document.getElementById('phoneticInput');
+        const phoneticText = document.getElementById('phoneticText');
+        const bgColorSelect = document.getElementById('bgColorSelect');
+        const textColorSelect = document.getElementById('textColorSelect');
+        const animationSelect = document.getElementById('animationSelect');
+        const resetSettings = document.getElementById('resetSettings');
+
+        // Font size control
+        fontSizeSlider.addEventListener('input', (e) => {
+            const size = e.target.value;
+            fontSizeValue.textContent = size + 'px';
+            mainText.style.fontSize = size + 'px';
+        });
+
+        // Main text control
+        mainTextInput.addEventListener('input', (e) => {
+            mainText.textContent = e.target.value;
+            document.title = e.target.value;
+        });
+
+        // Phonetic text control
+        phoneticInput.addEventListener('input', (e) => {
+            phoneticText.textContent = e.target.value;
+        });
+
+        // Background color control
+        bgColorSelect.addEventListener('change', (e) => {
+            const body = document.body;
+            body.className = body.className.replace(/bg-gradient-to-br[^"]*/, '');
+            
+            switch(e.target.value) {
+                case 'blue':
+                    body.classList.add('bg-gradient-to-br', 'from-blue-100', 'to-blue-200', 'dark:from-blue-900', 'dark:to-blue-800');
+                    break;
+                case 'purple':
+                    body.classList.add('bg-gradient-to-br', 'from-purple-100', 'to-purple-200', 'dark:from-purple-900', 'dark:to-purple-800');
+                    break;
+                case 'green':
+                    body.classList.add('bg-gradient-to-br', 'from-green-100', 'to-green-200', 'dark:from-green-900', 'dark:to-green-800');
+                    break;
+                case 'orange':
+                    body.classList.add('bg-gradient-to-br', 'from-orange-100', 'to-orange-200', 'dark:from-orange-900', 'dark:to-orange-800');
+                    break;
+                case 'pink':
+                    body.classList.add('bg-gradient-to-br', 'from-pink-100', 'to-pink-200', 'dark:from-pink-900', 'dark:to-pink-800');
+                    break;
+                case 'dark':
+                    body.classList.add('bg-gray-900');
+                    break;
+                case 'light':
+                    body.classList.add('bg-white');
+                    break;
+                default:
+                    body.classList.add('bg-gradient-to-br', 'from-white', 'to-gray-50', 'dark:from-gray-900', 'dark:to-gray-800');
+            }
+        });
+
+        // Text color control
+        textColorSelect.addEventListener('change', (e) => {
+            mainText.className = mainText.className.replace(/bg-gradient-to-r[^"]*text-transparent/, '');
+            mainText.classList.remove('text-blue-600', 'text-purple-600', 'text-green-600', 'text-red-600', 'text-orange-600', 'text-pink-600', 'text-black', 'text-white');
+            
+            switch(e.target.value) {
+                case 'blue':
+                    mainText.classList.add('text-blue-600');
+                    break;
+                case 'purple':
+                    mainText.classList.add('text-purple-600');
+                    break;
+                case 'green':
+                    mainText.classList.add('text-green-600');
+                    break;
+                case 'red':
+                    mainText.classList.add('text-red-600');
+                    break;
+                case 'orange':
+                    mainText.classList.add('text-orange-600');
+                    break;
+                case 'pink':
+                    mainText.classList.add('text-pink-600');
+                    break;
+                case 'black':
+                    mainText.classList.add('text-black');
+                    break;
+                case 'white':
+                    mainText.classList.add('text-white');
+                    break;
+                default:
+                    mainText.classList.add('bg-gradient-to-r', 'from-gray-900', 'via-primary', 'to-purple-600', 'dark:from-white', 'dark:via-primary', 'dark:to-purple-400', 'bg-clip-text', 'text-transparent');
+            }
+        });
+
+        // Animation control
+        animationSelect.addEventListener('change', (e) => {
+            mainText.className = mainText.className.replace(/animate-[a-z-]+/g, '');
+            if (e.target.value !== 'none') {
+                mainText.classList.add('animate-' + e.target.value);
+            }
+        });
+
+        // Reset settings
+        resetSettings.addEventListener('click', () => {
+            fontSizeSlider.value = 80;
+            fontSizeValue.textContent = '80px';
+            mainText.style.fontSize = '';
+            
+            mainTextInput.value = 'It\'s Ethem Miss';
+            mainText.textContent = 'It\'s Ethem Miss';
+            document.title = 'It\'s Ethem Miss';
+            
+            phoneticInput.value = '/ˈɛtuːm/';
+            phoneticText.textContent = '/ˈɛtuːm/';
+            
+            bgColorSelect.value = 'default';
+            textColorSelect.value = 'default';
+            animationSelect.value = 'none';
+            
+            // Reset background
+            document.body.className = 'min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300 custom-bg';
+            
+            // Reset text color
+            mainText.className = 'text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-gray-900 via-primary to-purple-600 dark:from-white dark:via-primary dark:to-purple-400 bg-clip-text text-transparent animate-fade-in mb-4 custom-text';
+            
+            isMiss = true;
         });
 
         // Add smooth scroll behavior
