@@ -1,4 +1,4 @@
-# It's Ethem Miss
+# itsethemmiss
 
 A simple HTML web page featuring a dynamic "It's Ethem [Miss/Sir]" title and dark mode support.
 
@@ -17,4 +17,5 @@ A simple HTML web page featuring a dynamic "It's Ethem [Miss/Sir]" title and dar
 ## Notes
 
 View extra files in [/extra](/extra) directory.  
-View assets file in [/assets](/assets) directory.  
+View assets files in [/assets](/assets) directory.  
+View docs files in [/docs](/docs) directory.  
