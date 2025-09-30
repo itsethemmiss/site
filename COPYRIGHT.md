@@ -1,6 +1,6 @@
 # Copyright Notice
 
-© 2025 Ethem Beldagli. All rights reserved.
+© 2025 Ethem Beldagli and James Davies. All rights reserved.
 
 ## Title: It's Ethem Miss
 
@@ -45,7 +45,7 @@ Copyright protection begins the moment the work is created and lasts for the lif
 
 For inquiries regarding permission to use this work or the phrase "It's Ethem Miss," please contact:
 
-- **Name**: Ethem Beldagli
+- **Name**: Ethem Beldagli, James Davies
 - **Email**: gg.suii999@gmail.com, a.ethem.beldagli@gmail.com
 
 ### Requesting Permission
