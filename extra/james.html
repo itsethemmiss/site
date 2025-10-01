@@ -73,9 +73,9 @@
             </button>
         </a>
 
-        <!-- Hide All button -->
-        <button id="hideAllBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center z-50" style="position:relative" title="Hide All">
-            <i class="fas fa-eye-slash text-primary text-2xl"></i>
+        <!-- Hide All Button -->
+        <button id="hideAllBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center z-50" title="Hide All">
+          <i class="fas fa-eye-slash text-primary text-2xl"></i>
         </button>
     </div>
 
@@ -432,34 +432,39 @@
 
         // Hide All functionality
         const hideAllBtn = document.getElementById('hideAllBtn');
+        const buttonContainer = hideAllBtn.parentElement; // .space-x-2
+        const buttonsToHide = Array.from(buttonContainer.querySelectorAll('button')).filter(btn => btn !== hideAllBtn);
+        const backToHomeBtn = document.getElementById('backToHomeBtn')?.closest('a');
+        if (backToHomeBtn) buttonsToHide.push(backToHomeBtn);
+        
+        const mainContent = document.querySelector('.relative.z-10.min-h-screen.flex.items-center.justify-center.px-4');
+        const footer = document.querySelector('footer');
+        const settingsModal = document.getElementById('settingsModal');
+
         let allHidden = false;
         
-        function toggleHideAll() {
-            // Select all main interactive/content elements
-            const btns = Array.from(document.querySelectorAll('.absolute.top-6.right-6.z-20.flex.space-x-2 > button, .absolute.top-6.right-6.z-20.flex.space-x-2 > a'));
-            btns.forEach(b => {
-                // Only hide all buttons except hideAllBtn itself
-                if (b !== hideAllBtn && b.style.display !== 'none') b.style.display = 'none';
-                else if (!allHidden && b !== hideAllBtn) b.style.display = '';
+        hideAllBtn.addEventListener('click', () => {
+            allHidden = !allHidden;
+        
+            // Hide or show other top buttons
+            buttonsToHide.forEach(el => {
+                el.style.display = allHidden ? 'none' : '';
             });
         
-            // Everything else to hide
-            document.querySelector('.relative.z-10.min-h-screen.flex.items-center.justify-center.px-4').style.display = allHidden ? '' : 'none';
-            document.getElementById('settingsModal').style.display = allHidden ? '' : 'none';
-            document.querySelector('footer').style.display = allHidden ? '' : 'none';
+            // Hide or show main content and footer
+            if (mainContent) mainContent.style.display = allHidden ? 'none' : '';
+            if (footer) footer.style.display = allHidden ? 'none' : '';
         
-            // Optionally, fade body background
-            document.body.style.opacity = allHidden ? '' : '1';
+            // Hide settings modal (if open)
+            if (settingsModal && !settingsModal.classList.contains('opacity-0')) {
+                settingsModal.style.display = allHidden ? 'none' : '';
+            }
         
-            // Toggling icon
+            // Change icon
             hideAllBtn.innerHTML = allHidden
-                ? '<i class="fas fa-eye-slash text-primary text-2xl"></i>'
-                : '<i class="fas fa-eye text-primary text-2xl"></i>';
-        
-            allHidden = !allHidden;
-        }
-        
-        hideAllBtn.addEventListener('click', toggleHideAll);
+              ? '<i class="fas fa-eye text-primary text-2xl"></i>'
+              : '<i class="fas fa-eye-slash text-primary text-2xl"></i>';
+        });
 
 
         // Add smooth scroll behavior
