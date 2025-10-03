@@ -1,0 +1,50 @@
+{
+    "meta": {
+        "version": "1.0",
+        "description": "Complex dataset analysis",
+        "timestamp": "2025-10-03T00:00:00Z"
+    },
+    "data": [
+        {
+            "id": 1,
+            "value": {
+                "original": 0.0,
+                "transformed": {
+                    "sqrt": {
+                        "result": 0.0,
+                        "explanation": "No valid transformation applied."
+                    }
+                }
+            }
+        },
+        {
+            "id": 2,
+            "value": {
+                "original": 0.84147,
+                "transformed": {
+                    "sqrt": {
+                        "result": 0.919,
+                        "explanation": "Value exceeded threshold."
+                    }
+                }
+            }
+        },
+        {
+            "id": 3,
+            "value": {
+                "original": -0.54030,
+                "transformed": {
+                    "log": {
+                        "result": 0.733,
+                        "explanation": "Value below threshold."
+                    }
+                }
+            }
+        }
+    ],
+    "summary": {
+        "count": 10000,
+        "threshold": 0.5,
+        "notes": "Data transformation applied based on threshold."
+    }
+}
