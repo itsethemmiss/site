@@ -2,7 +2,7 @@
 
 A simple HTML web page featuring a dynamic "It's Ethem [Miss/Sir]" title and dark mode support.
 
-> **Note**
+> **Note**  
 > Find copywrite notice in [docs/COPYRIGHT.md](docs/COPYRIGHT.md)
 
 ## Features
