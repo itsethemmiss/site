@@ -65,13 +65,7 @@
         <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
             <i class="fas fa-repeat text-primary text-2xl"></i>
         </button>
-        
-        <!-- Back to home button -->
-        <a href="../index.html">
-            <button id="backToHomeBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-                <i class="fas fa-arrow-left text-primary text-2xl"></i>
-            </button>
-        </a>
+   
     </div>
 
     <!-- Settings Modal (fullscreen) -->
@@ -93,16 +87,47 @@
                 </div>
 
                 <!-- Main Text -->
-                <div>
+                     <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Main Text</label>
-                    <input type="text" id="mainTextInput" value="It's Ethem Miss" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                    <select id="mainTextInput" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
+                        <option value="It's Ethem Miss">It's Ethem Miss</option>
+                        <option value="It's Ethem Sir">It's Ethem Sir</option>
+                    </select>
                 </div>
-
                 <!-- Phonetic Spelling -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phonetic Spelling</label>
-                    <input type="text" id="phoneticInput" value="/ˈɛtuːm/" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-700 dark:text-white text-base">
-                </div>
+           
+<!-- Download Box -->
+
+
+
+<script>
+  const downloadBtn = document.getElementById('downloadBtn');
+  const downloadBox = document.getElementById('downloadBox');
+  const closeDownloadBoxBtn = document.getElementById('closeDownloadBox');
+
+  downloadBtn.addEventListener('click', () => {
+    downloadBox.classList.remove('hidden');
+    setTimeout(() => {
+      downloadBox.querySelector('div').classList.remove('scale-95');
+      downloadBox.querySelector('div').classList.add('scale-100');
+    }, 10);
+  });
+
+  closeDownloadBoxBtn.addEventListener('click', () => {
+    downloadBox.querySelector('div').classList.remove('scale-100');
+    downloadBox.querySelector('div').classList.add('scale-95');
+    setTimeout(() => downloadBox.classList.add('hidden'), 200);
+  });
+
+  // Optional: close when clicking outside the box
+  downloadBox.addEventListener('click', (e) => {
+    if (e.target === downloadBox) {
+      closeDownloadBoxBtn.click();
+    }
+  });
+  
+</script>
+
 
                 <!-- Background Color -->
                 <div>
@@ -196,7 +221,7 @@
 
     <!-- Footer -->
     <footer class="relative z-10 text-center py-8 text-gray-500 dark:text-gray-400">
-        <p>&copy; 2025 Ethem Beldagli and 7ames.</p>
+        <p>&copy; 2025 Ethem Beldagli, James Davies and Aarav Jajoo</p>
     </footer>
 
     <script>
