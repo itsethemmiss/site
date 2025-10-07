@@ -1,13 +1,4 @@
 
-# URGENT
-ADD DOWNLOAD PAGE. NEW URL IS https://itsethemmiss.github.io
-
-
-
-
-
-
-
 # Todo List
 
 For Ethem to give features to add to [/index.html](/index.html):
