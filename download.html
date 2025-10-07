@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Our App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4B4BC8'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <div class="min-h-screen flex items-center justify-center px-4 py-8">
+        <div class="max-w-2xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-download text-white text-4xl"></i>
+                </div>
+                <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                    Download Our App
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400">
+                    Get the best experience on your device
+                </p>
+            </div>
+
+            <!-- Download Options -->
+            <div class="space-y-8">
+                <!-- iOS Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fab fa-apple text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-1">iOS</h2>
+                            <p class="text-gray-600 dark:text-gray-400">PWA Enabled</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                                Open in Safari
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Make sure you're viewing this page in Safari browser for the best experience.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                                Tap Share Button
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Tap the share button <i class="fas fa-share mx-1 text-blue-500"></i> at the bottom of your screen.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
+                                Add to Home Screen
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Scroll down and tap "Add to Home Screen" to install our PWA-enabled app.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                        <p class="text-blue-800 dark:text-blue-200 text-sm flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <strong>PWA Enabled:</strong> Our app works offline and provides a native-like experience on iOS.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Android Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fab fa-android text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-1">Android</h2>
+                            <p class="text-gray-600 dark:text-gray-400">Direct APK Download</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">
+                            Download our Android app directly to your device. Make sure to enable "Install from Unknown Sources" in your device settings if prompted.
+                        </p>
+                        
+                        <a href="file.apk" 
+                           download="file.apk"
+                           class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white font-semibold rounded-2xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-lg">
+                            <i class="fas fa-download mr-3"></i>
+                            Download APK
+                        </a>
+                        
+                        <div class="mt-4 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
+                            <p class="text-amber-800 dark:text-amber-200 text-sm flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                Make sure to enable installation from unknown sources in your Android settings.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        // Dark mode detection and handling
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+</body>
+</html>
