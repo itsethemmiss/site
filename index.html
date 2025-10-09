@@ -109,7 +109,6 @@
                     <span id="fontSizeValue" class="text-sm text-gray-500 dark:text-gray-400">80px</span>
                 </div>
 
-                <!-- Main Text -->
                 <!-- Background Color -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Background Color</label>
@@ -226,17 +225,12 @@
         const mainText = document.getElementById('mainText');
         
         toggleBtn.addEventListener('click', () => {
-            const currentText = document.getElementById('mainTextInput').value;
             if (isMiss) {
-                const newText = currentText.replace('Miss', 'Sir');
-                mainText.textContent = newText;
-                document.getElementById('mainTextInput').value = newText;
-                document.title = newText;
+                mainText.textContent = "It's Ethem Sir";
+                document.title = "It's Ethem Sir";
             } else {
-                const newText = currentText.replace('Sir', 'Miss');
-                mainText.textContent = newText;
-                document.getElementById('mainTextInput').value = newText;
-                document.title = newText;
+                mainText.textContent = "It's Ethem Miss";
+                document.title = "It's Ethem Miss";
             }
             isMiss = !isMiss;
         });
@@ -267,9 +261,6 @@
         // Settings controls
         const fontSizeSlider = document.getElementById('fontSizeSlider');
         const fontSizeValue = document.getElementById('fontSizeValue');
-        const mainTextInput = document.getElementById('mainTextInput');
-        const phoneticInput = document.getElementById('phoneticInput');
-        const phoneticText = document.getElementById('phoneticText');
         const bgColorSelect = document.getElementById('bgColorSelect');
         const textColorSelect = document.getElementById('textColorSelect');
         const animationSelect = document.getElementById('animationSelect');
@@ -285,17 +276,6 @@
             const size = e.target.value;
             fontSizeValue.textContent = size + 'px';
             mainText.style.fontSize = size + 'px';
-        });
-
-        // Main text control
-        mainTextInput.addEventListener('input', (e) => {
-            mainText.textContent = e.target.value;
-            document.title = e.target.value;
-        });
-
-        // Phonetic text control
-        phoneticInput.addEventListener('input', (e) => {
-            phoneticText.textContent = e.target.value;
         });
 
         // Background color control
@@ -405,12 +385,10 @@
             fontSizeValue.textContent = '80px';
             mainText.style.fontSize = '';
             
-            mainTextInput.value = 'It\'s Ethem Miss';
+            // Reset text to default
             mainText.textContent = 'It\'s Ethem Miss';
             document.title = 'It\'s Ethem Miss';
-            
-            phoneticInput.value = '/ˈɛtuːm/';
-            phoneticText.textContent = '/ˈɛtuːm/';
+            isMiss = true;
             
             bgColorSelect.value = 'default';
             textColorSelect.value = 'default';
