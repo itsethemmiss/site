@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>It's Ethem Miss</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#5D5CDE">
+    <meta name="msapplication-TileColor" content="#5D5CDE">
+    <meta name="description" content="It's Ethem Miss - A modern web app">
+    
+    <!-- iOS PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="It's Ethem Miss">
+    <meta name="apple-touch-icon" content="logo.PNG">
+    
+    <!-- Icons -->
+    <link rel="icon" href="logo.PNG">
+    <link rel="apple-touch-icon" href="logo.PNG">
+    <link rel="apple-touch-icon" sizes="152x152" href="logo.PNG">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo.PNG">
+    <link rel="apple-touch-icon" sizes="167x167" href="logo.PNG">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkl0J3MgRXRoZW0gTWlzcyIsCiAgInNob3J0X25hbWUiOiAiRXRoZW0gTWlzcyIsCiAgImRlc2NyaXB0aW9uIjogIkl0J3MgRXRoZW0gTWlzcyAtIEEgbW9kZXJuIHdlYiBhcHAiLAogICJzdGFydF91cmwiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiM1RDVDREUiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImxvZ28uUE5HIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9LAogICAgewogICAgICAic3JjIjogImxvZ28uUE5HIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXSwKICAiY2F0ZWdvcmllcyI6IFsidXRpbGl0aWVzIiwgInByb2R1Y3Rpdml0eSJdLAogICJsYW5nIjogImVuIiwKICAiZGlyIjogImx0ciIKfQ==">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -594,6 +615,88 @@
 
             // Return to main page
             showMainPage();
+        });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Create service worker inline as data URL
+                const swCode = `
+                    const CACHE_NAME = 'ethem-miss-v1';
+                    const urlsToCache = [
+                        '/',
+                        '/logo.PNG'
+                    ];
+
+                    self.addEventListener('install', event => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => {
+                                    return cache.addAll(urlsToCache);
+                                })
+                        );
+                    });
+
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => {
+                        console.log('PWA: Service Worker registered successfully');
+                    })
+                    .catch(error => {
+                        console.log('PWA: Service Worker registration failed');
+                    });
+            });
+        }
+
+        // PWA Install Banner
+        let deferredPrompt;
+        let installButton;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install button
+            if (!installButton) {
+                installButton = document.createElement('button');
+                installButton.innerHTML = '<i class="fas fa-plus mr-2"></i>Install App';
+                installButton.className = 'fixed bottom-6 left-6 z-30 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center font-semibold';
+                installButton.addEventListener('click', () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        deferredPrompt.userChoice.then((choiceResult) => {
+                            if (choiceResult.outcome === 'accepted') {
+                                console.log('PWA: User accepted the install prompt');
+                                installButton.style.display = 'none';
+                            }
+                            deferredPrompt = null;
+                        });
+                    }
+                });
+                document.body.appendChild(installButton);
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA: App was installed');
+            if (installButton) {
+                installButton.style.display = 'none';
+            }
         });
 
         // Add smooth scroll behavior
