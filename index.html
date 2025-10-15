@@ -12,6 +12,7 @@
                 extend: {
                     colors: {
                         primary: '#5D5CDE',
+                        'primary-dark': '#4B4BC8'
                     },
                     animation: {
                         'fade-in': 'fadeIn 1s ease-in-out',
@@ -39,6 +40,9 @@
         }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
         .custom-bg {
             transition: background 0.3s ease;
         }
@@ -46,11 +50,24 @@
         .custom-text {
             transition: color 0.3s ease;
         }
+
+        .page-section {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .page-section.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
     </style>
 </head>
 
-<body
-    class="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300 custom-bg">
+<body class="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-300 custom-bg">
     <!-- Background decoration -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float"></div>
@@ -58,8 +75,8 @@
             style="animation-delay: -3s;"></div>
     </div>
 
-    <!-- Button container -->
-    <div class="absolute top-6 right-6 z-20 flex space-x-2">
+    <!-- Main page buttons -->
+    <div id="mainButtons" class="absolute top-6 right-6 z-20 flex space-x-2">
         <!-- Settings button -->
         <button id="settingsBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
             <i class="fas fa-cog text-primary text-2xl"></i>
@@ -70,23 +87,29 @@
             <i class="fas fa-repeat text-primary text-2xl"></i>
         </button>
 
-        <!-- Toggle button -->
-        <a href="download.html">
-            <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-                <i class="fas fa-download text-primary text-2xl"></i>
+        <!-- Download button -->
+        <button id="downloadBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+            <i class="fas fa-download text-primary text-2xl"></i>
+        </button>
+
+        <a href="https://github.com/itsethemmiss/site">
+            <button class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                <i class="fab fa-github text-primary text-2xl"></i>
             </button>
         </a>
-        <a href="https://github.com/itsethemmiss/site">
-            <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-        		<i class="fab fa-github text-primary text-2xl"></i>
-		    </button>
-        </a>
-        <a href="https://itsethemmiss.github.io">
-            <button id="toggleBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
-        		<i class="fas fa-home text-primary text-2xl"></i>
-		    </button>
-        </a>
 
+        <a href="https://itsethemmiss.github.io">
+            <button class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                <i class="fas fa-home text-primary text-2xl"></i>
+            </button>
+        </a>
+    </div>
+
+    <!-- Download page back button -->
+    <div id="downloadButtons" class="hidden absolute top-6 right-6 z-20">
+        <button id="backBtn" class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center">
+            <i class="fas fa-arrow-left text-primary text-2xl"></i>
+        </button>
     </div>
 
     <!-- Settings Modal (fullscreen) -->
@@ -184,27 +207,155 @@
         </div>
     </div>
 
-    <!-- Main content -->
-    <div class="relative z-10 min-h-screen flex items-center justify-center px-4">
-        <div class="text-center max-w-4xl mx-auto">
-            <!-- Main heading -->
-            <h1 id="mainText"
-                class="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-gray-900 via-primary to-purple-600 dark:from-white dark:via-primary dark:to-purple-400 bg-clip-text text-transparent animate-fade-in mb-4 custom-text">
-                It's Ethem Miss
-            </h1>
+    <!-- Main Page Section -->
+    <div id="mainPage" class="page-section relative z-10 min-h-screen flex flex-col">
+        <!-- Main content -->
+        <div class="flex-1 flex items-center justify-center px-4">
+            <div class="text-center max-w-4xl mx-auto">
+                <!-- Main heading -->
+                <h1 id="mainText"
+                    class="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-gray-900 via-primary to-purple-600 dark:from-white dark:via-primary dark:to-purple-400 bg-clip-text text-transparent animate-fade-in mb-4 custom-text">
+                    It's Ethem Miss
+                </h1>
 
-            <!-- Phonetic spelling -->
-            <p id="phoneticText"
-                class="text-2xl md:text-3xl text-gray-500 dark:text-gray-400 animate-slide-up font-light tracking-wider">
-                /ˈɛtuːm/
-            </p>
+                <!-- Phonetic spelling -->
+                <p id="phoneticText"
+                    class="text-2xl md:text-3xl text-gray-500 dark:text-gray-400 animate-slide-up font-light tracking-wider">
+                    /ˈɛtuːm/
+                </p>
+            </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 text-gray-500 dark:text-gray-400">
+            <p>&copy; 2025 Ethem Beldagli and 7ames.</p>
+        </footer>
     </div>
 
-    <!-- Footer -->
-    <footer class="relative z-10 text-center py-8 text-gray-500 dark:text-gray-400">
-        <p>&copy; 2025 Ethem Beldagli and 7ames.</p>
-    </footer>
+    <!-- Download Page Section -->
+    <div id="downloadPage" class="page-section hidden relative z-10 min-h-screen flex items-center justify-center px-4 py-24">
+        <div class="max-w-2xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="w-20 h-20 bg-gradient-to-br from-primary to-primary-dark rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-download text-white text-4xl"></i>
+                </div>
+                <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+                    Download Our App
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400">
+                    Get the best experience on your device
+                </p>
+            </div>
+
+            <!-- Download Options -->
+            <div class="space-y-8">
+                <!-- iOS Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fab fa-apple text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-1">iOS</h2>
+                            <p class="text-gray-600 dark:text-gray-400">Needs iOS 17 or later</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                                Open in Safari
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Make sure you're viewing this page in Safari.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                                Tap Share Button
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Tap the share button <i class="fas fa-share mx-1 text-blue-500"></i> at the bottom of your screen.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
+                                Add to Home Screen
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Scroll down and tap "Add to Home Screen" to install our PWA-enabled app.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                        <p class="text-blue-800 dark:text-blue-200 text-sm flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <span><strong>PWA Enabled:</strong> Our app provides a native-like experience on iOS.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Android Section -->
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fab fa-android text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-1">Android</h2>
+                            <p class="text-gray-600 dark:text-gray-400">Option 1: Direct APK Download</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">
+                            Download our Android app directly to your device. Make sure to enable "Install from Unknown Sources" in your device settings if prompted.
+                        </p>
+                        
+                        <a href="com.itsethemmiss.itsethemmiss.apk" 
+                           download="com.itsethemmiss.itsethemmiss.apk"
+                           class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white font-semibold rounded-2xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-lg">
+                            <i class="fas fa-download mr-3"></i>
+                            Download APK
+                        </a>
+                    </div>
+                    
+                    <br><br>
+                    <p class="text-gray-600 dark:text-gray-400">Option 2: Add to home screen</p>
+                    <br>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                                Step 1: Open Menu
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Press the three dots <i class="fas fa-ellipsis-h mx-1 text-blue-500"></i> near the top right corner.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
+                            <h3 class="font-semibold mb-3 flex items-center">
+                                <span class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                                Step 2: Add to Home Screen
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                                Select "Add to Home Screen" to install our PWA-enabled app.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Dark mode support
@@ -219,6 +370,33 @@
             }
         });
 
+        // Page navigation
+        const mainPage = document.getElementById('mainPage');
+        const downloadPage = document.getElementById('downloadPage');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const backBtn = document.getElementById('backBtn');
+        const mainButtons = document.getElementById('mainButtons');
+        const downloadButtons = document.getElementById('downloadButtons');
+
+        function showDownloadPage() {
+            mainPage.classList.add('hidden');
+            downloadPage.classList.remove('hidden');
+            mainButtons.classList.add('hidden');
+            downloadButtons.classList.remove('hidden');
+            document.title = "Download Our App";
+        }
+
+        function showMainPage() {
+            downloadPage.classList.add('hidden');
+            mainPage.classList.remove('hidden');
+            downloadButtons.classList.add('hidden');
+            mainButtons.classList.remove('hidden');
+            document.title = isMiss ? "It's Ethem Miss" : "It's Ethem Sir";
+        }
+
+        downloadBtn.addEventListener('click', showDownloadPage);
+        backBtn.addEventListener('click', showMainPage);
+
         // Toggle functionality
         let isMiss = true;
         const toggleBtn = document.getElementById('toggleBtn');
@@ -227,10 +405,14 @@
         toggleBtn.addEventListener('click', () => {
             if (isMiss) {
                 mainText.textContent = "It's Ethem Sir";
-                document.title = "It's Ethem Sir";
+                if (mainPage.classList.contains('hidden') === false) {
+                    document.title = "It's Ethem Sir";
+                }
             } else {
                 mainText.textContent = "It's Ethem Miss";
-                document.title = "It's Ethem Miss";
+                if (mainPage.classList.contains('hidden') === false) {
+                    document.title = "It's Ethem Miss";
+                }
             }
             isMiss = !isMiss;
         });
@@ -409,6 +591,9 @@
             letterSpacingSlider.value = 0;
             letterSpacingValue.textContent = '0em';
             mainText.style.letterSpacing = '';
+
+            // Return to main page
+            showMainPage();
         });
 
         // Add smooth scroll behavior
@@ -422,5 +607,4 @@
         });
     </script>
 </body>
-
 </html>
