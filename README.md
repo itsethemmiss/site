@@ -19,8 +19,8 @@ A simple HTML web page featuring a dynamic "It's Ethem [Miss/Sir]" title and dar
 
 ## Notes
 
-- James's files in [/extra](/extra) directory.  
-- Assets files in [/assets](/assets) directory.  
-- Docs files in [/docs](/docs) directory.  
-- Source files in [/src](/src) directory.  
-- Todo lists in [/todo](/todo) directory.  
+- James's files in [./extra](extra) directory.  
+- Assets files in [./assets](assets) directory.  
+- Docs files in [./docs](docs) directory.  
+- Source files in [./src](src) directory.  
+- Todo lists in [./todo](todo) directory.  
